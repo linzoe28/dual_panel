@@ -1,0 +1,35 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/js/bootstrap.min.js" />
+    <link rel="stylesheet" href="index.css" />
+    <script src="index.js"></script>
+    <script src="./ckeditor/ckeditor.js"></script>
+</head>
+
+<body>
+    <div id="app" class="container">
+        <div class="btn-grpup">
+            <button type="button" class="btn btn-primary">New File</button>
+            <button type="button" class="btn btn-primary">Open File</button>
+            <button type="button" class="btn btn-primary">Save File</button>
+        </div><br />
+        <div class="row h-100">
+            <textarea class="col-6 source" id="source"></textarea>
+            <div class="col-6 result" id="result"></div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        window.$=require('jquery');
+        var editor = CKEDITOR.replace('source', {});
+        editor.on('change', function (eve) {
+          console.log(eve.editor.getData());
+          $("#result").html(eve.editor.getData());
+        });
+    </script>
+</body>
+
+</html>

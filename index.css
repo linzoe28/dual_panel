@@ -1,0 +1,13 @@
+html,body{
+    height: 100%;
+}
+
+.source{
+    height: 90%;
+    overflow: auto;
+}
+
+.result{
+    height: 90%;
+    overflow: auto;
+}
