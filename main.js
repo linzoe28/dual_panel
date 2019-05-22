@@ -1,5 +1,6 @@
 const { app, BrowserWindow, Menu, globalShortcut } = require('electron');
 const applicationMenu=require('./menu.js');
+const fs =require('fs');
 let win
 function createWindow() {
     win = new BrowserWindow({ windth: 800, height: 600 })
@@ -14,4 +15,13 @@ function createWindow() {
     })
 }
 
-app.on('ready', createWindow)
+function readFile(path){
+    return fs.readFileSync(path).toString();
+}
+
+function writeFile(path,content){
+    fs.writeFileSync(path,content);
+}
+
+app.on('ready', createWindow);
+module.exports={readFile,writeFile};

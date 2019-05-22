@@ -1,13 +1,38 @@
-const Menu=require('electron').Menu;
+const Menu = require('electron').Menu;
+const dialog = require('electron').dialog;
+const fs =require('fs');
 let menuitem = [
     {
         label: "File",
         submenu: [
-            { label: "New File" },
-            { label: "Open File" },
-            { label: "Close File" },
-            { type :"separator"},
-            { role :"quit"}
+            {
+                label: "New File",
+                click: function (item, win) {
+                    win.webContents.send("new-file");
+                }
+            },
+            {
+                label: "Open File",
+                click: function (item, win) {
+                    dialog.showOpenDialog(win, {
+                        filters: [
+                            { name: "Html Files", extensions: ["html", "htm"] }
+                        ]
+                    }, function (files) {
+                         let str=fs.readFileSync(files[0]).toString();
+                         win.webContents.send("open-file",str);
+                         console.log(str);
+                    });
+                }
+            },
+            {
+                label: "Close File",
+                click: function (item, win) {
+
+                }
+            },
+            { type: "separator" },
+            { role: "quit" }
         ]
     }, {
         label: "tool",
@@ -19,9 +44,9 @@ let menuitem = [
                     { label: "togglefullscreen" }
                 ]
             },
-            { 
+            {
                 label: "say hello",
-                click:function(){
+                click: function () {
                     console.log("hello");
                 }
             }
