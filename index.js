@@ -16,6 +16,11 @@ $(document).ready(function () {
     ipc.on("open-file",function(ev, mg){
         editor.setData(mg);
     });
+    ipc.on("save-file",function(ev,mg){
+       let path=mg;
+       let src=editor.getData();
+       writeFile(path,src);
+    });
 
     editor.on('change', function (eve) {
         console.log(eve.editor.getData());

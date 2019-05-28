@@ -1,6 +1,6 @@
 const Menu = require('electron').Menu;
 const dialog = require('electron').dialog;
-const fs =require('fs');
+const fs = require('fs');
 let menuitem = [
     {
         label: "File",
@@ -19,16 +19,22 @@ let menuitem = [
                             { name: "Html Files", extensions: ["html", "htm"] }
                         ]
                     }, function (files) {
-                         let str=fs.readFileSync(files[0]).toString();
-                         win.webContents.send("open-file",str);
-                         console.log(str);
+                        let str = fs.readFileSync(files[0]).toString();
+                        win.webContents.send("open-file", str);
+                        console.log(str);
                     });
                 }
             },
             {
-                label: "Close File",
+                label: "Save File",
                 click: function (item, win) {
-
+                    dialog.showSaveDialog(win, {
+                        filters: [
+                            { name: "html files", extensions: ["html", "htm"] }
+                        ]
+                    }, function (file) {
+                        win.webContents.send("save-file", file);
+                    });
                 }
             },
             { type: "separator" },
